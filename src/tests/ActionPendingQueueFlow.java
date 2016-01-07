@@ -87,22 +87,6 @@ public class ActionPendingQueueFlow extends MonitoringPage_Functions {
     
 	String followUpMessageSourceId = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewSourceId"))).getText();
 	System.out.println("Message 1 Source ID: " + followUpMessageSourceId);
-    /*
-    //Set status to follow-up and test cancel functionality (with X icon)
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_StatusDropdownButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Lst_AnalystQueue_StatusListFollowUp"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_TakeActionCancelXButton"))).click();
-    Thread.sleep(1000);
-    
-    // Set status to follow-up and test cancel functionality (with Cancel button)
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_StatusDropdownButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Lst_AnalystQueue_StatusListFollowUp"))).click();
-    Thread.sleep(500);
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_TakeActionLowerCancelButton"))).click();
-    Thread.sleep(1000);
-    */
     
     //Set status to follow-up and click green Take Action button
     driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))).click();
