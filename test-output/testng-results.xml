@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="102206" started-at="2016-01-06T23:27:57Z" finished-at="2016-01-06T23:29:39Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="102206" started-at="2016-01-06T23:27:57Z" finished-at="2016-01-06T23:29:39Z">
+      <class name="tests.TakeActionStatusFunctionality">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:tests.TakeActionStatusFunctionality@71e7a66b]" name="setUp" is-config="true" duration-ms="2241" started-at="2016-01-06T17:27:57Z" finished-at="2016-01-06T17:28:00Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method status="PASS" signature="testTakeActionStatusFunctionality()[pri:0, instance:tests.TakeActionStatusFunctionality@71e7a66b]" name="testTakeActionStatusFunctionality" duration-ms="99374" started-at="2016-01-06T17:28:00Z" finished-at="2016-01-06T17:29:39Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testTakeActionStatusFunctionality -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:tests.TakeActionStatusFunctionality@71e7a66b]" name="tearDown" is-config="true" duration-ms="577" started-at="2016-01-06T17:29:39Z" finished-at="2016-01-06T17:29:39Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- tests.TakeActionStatusFunctionality -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

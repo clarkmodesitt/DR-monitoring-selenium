@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="3" name="Suite" parallel="tests">
+  <test name="Test1">
+    <classes>
+      <class name="tests.VerificationPointTest"/>
+    </classes>
+  </test>
+  <test name="Test2">
+  	<classes>
+  	  <class name="tests.MyTestNGTest"/>
+  	</classes>
+  </test>
+  <test name="Test3">
+  	<classes>
+  	  <class name="tests.PopDialogTest"/>
+  	</classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
