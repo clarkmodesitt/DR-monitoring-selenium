@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite thread-count="3" name="Suite" parallel="tests">
-  <test name="Test1">
+<suite thread-count="1" name="Suite" parallel="tests">
+  <test name="SYNTC-42 - Monitoring - Take Action Status Functionality">
     <classes>
-      <class name="tests.VerificationPointTest"/>
+      <class name="tests.TakeActionStatusFunctionality"/>
     </classes>
   </test>
-  <test name="Test2">
+  <test name="SYNTC-44 - Monitoring - Acton Pending Queue Flow">
   	<classes>
-  	  <class name="tests.MyTestNGTest"/>
+  	  <class name="tests.ActionPendingQueueFlow"/>
   	</classes>
   </test>
-  <test name="Test3">
-  	<classes>
-  	  <class name="tests.PopDialogTest"/>
-  	</classes>
-  </test> <!-- Test -->
 </suite> <!-- Suite -->

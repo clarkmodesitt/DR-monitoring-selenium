@@ -1,25 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="1" passed="1">
+<testng-results skipped="0" failed="0" total="2" passed="2">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="102206" started-at="2016-01-06T23:27:57Z" finished-at="2016-01-06T23:29:39Z">
+  <suite name="Suite" duration-ms="218087" started-at="2016-01-11T17:11:35Z" finished-at="2016-01-11T17:15:13Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="102206" started-at="2016-01-06T23:27:57Z" finished-at="2016-01-06T23:29:39Z">
+    <test name="SYNTC-42 - Monitoring - Take Action Status Functionality" duration-ms="113211" started-at="2016-01-11T17:11:35Z" finished-at="2016-01-11T17:13:28Z">
       <class name="tests.TakeActionStatusFunctionality">
-        <test-method status="PASS" signature="setUp()[pri:0, instance:tests.TakeActionStatusFunctionality@71e7a66b]" name="setUp" is-config="true" duration-ms="2241" started-at="2016-01-06T17:27:57Z" finished-at="2016-01-06T17:28:00Z">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:tests.TakeActionStatusFunctionality@71e7a66b]" name="setUp" is-config="true" duration-ms="1692" started-at="2016-01-11T11:11:35Z" finished-at="2016-01-11T11:11:36Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="testTakeActionStatusFunctionality()[pri:0, instance:tests.TakeActionStatusFunctionality@71e7a66b]" name="testTakeActionStatusFunctionality" duration-ms="99374" started-at="2016-01-06T17:28:00Z" finished-at="2016-01-06T17:29:39Z">
+        <test-method status="PASS" signature="testTakeActionStatusFunctionality()[pri:0, instance:tests.TakeActionStatusFunctionality@71e7a66b]" name="testTakeActionStatusFunctionality" duration-ms="110899" started-at="2016-01-11T11:11:36Z" finished-at="2016-01-11T11:13:27Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testTakeActionStatusFunctionality -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:tests.TakeActionStatusFunctionality@71e7a66b]" name="tearDown" is-config="true" duration-ms="577" started-at="2016-01-06T17:29:39Z" finished-at="2016-01-06T17:29:39Z">
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:tests.TakeActionStatusFunctionality@71e7a66b]" name="tearDown" is-config="true" duration-ms="607" started-at="2016-01-11T11:13:27Z" finished-at="2016-01-11T11:13:28Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
       </class> <!-- tests.TakeActionStatusFunctionality -->
-    </test> <!-- Default test -->
-  </suite> <!-- Default suite -->
+    </test> <!-- SYNTC-42 - Monitoring - Take Action Status Functionality -->
+    <test name="SYNTC-44 - Monitoring - Acton Pending Queue Flow" duration-ms="104853" started-at="2016-01-11T17:13:28Z" finished-at="2016-01-11T17:15:13Z">
+      <class name="tests.ActionPendingQueueFlow">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:tests.ActionPendingQueueFlow@2aafb23c]" name="setUp" is-config="true" duration-ms="1194" started-at="2016-01-11T11:13:28Z" finished-at="2016-01-11T11:13:29Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method status="PASS" signature="testActionPendingQueueFlow()[pri:0, instance:tests.ActionPendingQueueFlow@2aafb23c]" name="testActionPendingQueueFlow" duration-ms="103087" started-at="2016-01-11T11:13:29Z" finished-at="2016-01-11T11:15:12Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testActionPendingQueueFlow -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:tests.ActionPendingQueueFlow@2aafb23c]" name="tearDown" is-config="true" duration-ms="570" started-at="2016-01-11T11:15:12Z" finished-at="2016-01-11T11:15:13Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- tests.ActionPendingQueueFlow -->
+    </test> <!-- SYNTC-44 - Monitoring - Acton Pending Queue Flow -->
+  </suite> <!-- Suite -->
 </testng-results>

@@ -1,27 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
-  <test name="Test1(failed)">
+<suite thread-count="1" guice-stage="DEVELOPMENT" name="Failed suite [Suite]" parallel="tests">
+  <test name="SYNTC-42 - Monitoring - Take Action Status Functionality(failed)" parallel="tests">
     <classes>
-      <class name="tests.VerificationPointTest">
+      <class name="tests.TakeActionStatusFunctionality">
         <methods>
+          <include name="testTakeActionStatusFunctionality"/>
           <include name="setUp"/>
           <include name="tearDown"/>
-          <include name="testHelloUsername"/>
         </methods>
-      </class> <!-- tests.VerificationPointTest -->
-      <class name="tests.PopDialogTest">
-        <methods>
-          <include name="tearDown"/>
-          <include name="setUp"/>
-        </methods>
-      </class> <!-- tests.PopDialogTest -->
-      <class name="tests.MyTestNGTest">
+      </class> <!-- tests.TakeActionStatusFunctionality -->
+      <class name="tests.ActionPendingQueueFlow">
         <methods>
           <include name="setUp"/>
           <include name="tearDown"/>
         </methods>
-      </class> <!-- tests.MyTestNGTest -->
+      </class> <!-- tests.ActionPendingQueueFlow -->
     </classes>
-  </test> <!-- Test1(failed) -->
+  </test> <!-- SYNTC-42 - Monitoring - Take Action Status Functionality(failed) -->
 </suite> <!-- Failed suite [Suite] -->

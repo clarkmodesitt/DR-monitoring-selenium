@@ -20,252 +20,179 @@ import org.testng.AssertJUnit;
 import functions.MonitoringPage_Functions;
 
 public class TakeActionStatusFunctionality extends MonitoringPage_Functions {
-  private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
+  public static String sharedUIMapPath;
+  public static String baseUrl;
 
 
   @BeforeMethod
   public void setUp() throws Exception {
-	prop = new Properties();
-	prop.load(new FileInputStream("./SharedUIMap/SharedUIMap.properties"));
-	//driver = new FirefoxDriver();
-	System.setProperty("webdriver.chrome.driver", "chromedriver");
-	driver = new ChromeDriver();
-    baseUrl = "http://naomi-nn.qa.digitalreasoning.com:8555/apps/login";
+    prop = new Properties();
+    prop.load(new FileInputStream("./Configuration/Monitoring_Config.properties"));
+    //driver = new FirefoxDriver();
+    System.setProperty("webdriver.chrome.driver", "chromedriver");
+    driver = new ChromeDriver();
+    sharedUIMapPath = prop.getProperty("SharedUIMap");
+    prop.load(new FileInputStream(sharedUIMapPath));
+    baseUrl = prop.getProperty("ClusterUrl");
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
   }
 
   @Test
   public void testTakeActionStatusFunctionality() throws Exception {
-    // Log in
+    // Log in - using Synthesys_Login method
     driver.get(baseUrl);
     driver.manage().window().maximize();
-    driver.findElement(By.id(prop.getProperty("Txt_Login_Username"))).clear();
-    driver.findElement(By.id(prop.getProperty("Txt_Login_Username"))).sendKeys("admin");
-    driver.findElement(By.id(prop.getProperty("Txt_Login_Password"))).clear();
-    driver.findElement(By.id(prop.getProperty("Txt_Login_Password"))).sendKeys("1234");
-    driver.findElement(By.xpath(prop.getProperty("Btn_Login_SignIn"))).click();
-    
+    Synthesys_Login(driver, prop.getProperty("Username"), prop.getProperty("Password"));
 
-	//Wait for page to load
+    //Wait for page to load
     WebDriverWait wait = new WebDriverWait(driver, 15);
-    wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Lbl_Synthesys_KnowledgeGraphToQuery"))));
+    //wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Lbl_Synthesys_KnowledgeGraphToQuery"))));
     Thread.sleep(500);
-    
-    // Go to monitoring and wait for page to load select KG (enron_rc2
+
+    // Go to monitoring and wait for page to load selected KG - using AQ_SelectKGForTesting method
     driver.findElement(By.linkText(prop.getProperty("Lnk_Synthesys_MonitoringTab"))).click();
     wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_Monitoring_KGDropdownButton"))));
-    
-    if(driver.findElement(By.xpath(prop.getProperty("Btn_Monitoring_KGDropdownButton"))).equals("Select a knowledge graph...")) {
-    	wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prop.getProperty("Lbl_AnalystQueue_OopsMessage"))));
-    }	
-    else {
-    	wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prop.getProperty("Lbl_AnalystQueue_MessageCount"))));
-    }
-    
-    //Select KG (enron_rc2)
-    String storedKG = driver.findElement(By.xpath(prop.getProperty("Btn_Monitoring_KGDropdownButton"))).getText();
-    System.out.println(storedKG);
-    System.out.println(storedKG.equals("enron_rc2"));
-    if(storedKG.equals("enron_rc2") == false) {
-	    driver.findElement(By.xpath(prop.getProperty("Btn_Monitoring_KGDropdownButton"))).click();
-	    driver.findElement(By.xpath(prop.getProperty("Lst_Monitoring_EnronRc2"))).click();
-	    Thread.sleep(5000);
-    }
+
+    AQ_SelectKGForTesting(driver, prop.getProperty("SelectedKG"));
     
     // Select first message and store the message subject, date, and source ID
     driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_ClickFirstMessage"))).click();
     wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))));
     Thread.sleep(2000);
-    String followUpMessageSubject = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewSubjectLabel"))).getText();
+    String followUpMessageSubject = driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewSubjectLabel"))).getText();
     System.out.println("Follow-up message Subject: "+ followUpMessageSubject);
     
-    String followUpMessageDate = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewDateLabel"))).getText();
+    String followUpMessageDate = driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewDateLabel"))).getText();
     System.out.println("Follow-up message Date: " + followUpMessageDate);
     
-	String followUpMessageSourceId = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewSourceId"))).getText();
+	String followUpMessageSourceId = driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewSourceId"))).getText();
 	System.out.println("Follow-up message Source ID: " + followUpMessageSourceId);
     
-    //Set status to follow-up and test cancel functionality (with X icon)
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))).click();
-    Thread.sleep(1000);
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_StatusDropdownButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Lst_AnalystQueue_StatusListFollowUp"))).click();
-    Thread.sleep(1000);
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_TakeActionCancelXButton"))).click();
-    wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))));
-    Thread.sleep(2000);
+    //Set status to follow-up and test cancel functionality (with X icon) - using AQ_TakeActionCancel1 method
+    AQ_TakeActionCancel1(driver);
+
+    //Verify that message is not changed/moved from Analyst queue
+    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewSubjectLabel"))).getText(), followUpMessageSubject, "Did not cancel properly.");
+    
+    // Set status to follow-up and test cancel functionality (with Cancel button) - using AQ_TakeActionCancel2 method
+    AQ_TakeActionCancel2(driver);
     
     //Verify that message is not changed/moved from Analyst queue
-    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewSubjectLabel"))).getText(), followUpMessageSubject, "Did not cancel properly.");
+    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewSubjectLabel"))).getText(), followUpMessageSubject, "Did not cancel properly.");
     
-    // Set status to follow-up and test cancel functionality (with Cancel button)
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))).click();
-    Thread.sleep(1000);
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_StatusDropdownButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Lst_AnalystQueue_StatusListFollowUp"))).click();
-    Thread.sleep(1000);
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_TakeActionLowerCancelButton"))).click();
-    wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))));
-    Thread.sleep(2000);
-    
-    //Verify that message is not changed/moved from Analyst queue
-    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewSubjectLabel"))).getText(), followUpMessageSubject, "Did not cancel properly.");
-    
-    //Set status to follow-up and click green Take Action button
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))).click();
-    Thread.sleep(1000);
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_StatusDropdownButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Lst_AnalystQueue_StatusListFollowUp"))).click();
-    Thread.sleep(1000);;
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_TakeActionGreenTakeActionButton"))).click();
-    wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))));
-    Thread.sleep(2000);
+    //Set status to follow-up and click green Take Action button - using AQ_TakeActionFollowUp method
+    AQ_TakeActionFollowUp(driver);
     
     //Check that message has been moved from the Analyst Queue
-    String escalateMessageSourceId = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewSourceId"))).getText();
+    String escalateMessageSourceId = driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewSourceId"))).getText();
     
     if(escalateMessageSourceId.equals(followUpMessageSourceId)) {
     	String newEscalateMessageSourceId = AQ_WaitForNewSourceId(driver, followUpMessageSourceId, escalateMessageSourceId);
     	escalateMessageSourceId = newEscalateMessageSourceId;
     }
     
-    String escalateMessageSubject = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewSubjectLabel"))).getText();
+    String escalateMessageSubject = driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewSubjectLabel"))).getText();
     System.out.println("Escalate message Subject: " + escalateMessageSubject);
     
-    String escalateMessageDate = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewDateLabel"))).getText();
+    String escalateMessageDate = driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewDateLabel"))).getText();
     System.out.println("Escalate message Date: " + escalateMessageDate);
     
 	System.out.println("Escalate message Source ID: " + escalateMessageSourceId);
     
-    //Set status to escalate and click green Take Action button
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))).click();
-    Thread.sleep(1000);
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_StatusDropdownButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Lst_AnalystQueue_StatusListEscalate"))).click();
-    Thread.sleep(1000);;
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_TakeActionGreenTakeActionButton"))).click();
-    wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))));
-    Thread.sleep(2000);
+    //Set status to escalate and click green Take Action button - using AQ_TakeActionEscalate method
+    AQ_TakeActionEscalate(driver);
     
     //Check that message has been moved from the Analyst Queue
-    String breachMessageSourceId = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewSourceId"))).getText();
+    String breachMessageSourceId = driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewSourceId"))).getText();
     
     if(breachMessageSourceId.equals(escalateMessageSourceId)) {
     	String newBreachMessageSourceId = AQ_WaitForNewSourceId(driver, escalateMessageSourceId, breachMessageSourceId);
     	breachMessageSourceId = newBreachMessageSourceId;
     }
     
-    String breachMessageSubject = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewSubjectLabel"))).getText();
+    String breachMessageSubject = driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewSubjectLabel"))).getText();
     System.out.println("Breach message Subject: " + breachMessageSubject);
     
-    String breachMessageDate = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewDateLabel"))).getText();
+    String breachMessageDate = driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewDateLabel"))).getText();
     System.out.println("Breach message Date: " + breachMessageDate);
     
 	System.out.println("Breach message Source ID: " + breachMessageSourceId);
     
-    //Set status to breach and click green Take Action button
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))).click();
-    Thread.sleep(1000);
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_StatusDropdownButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Lst_AnalystQueue_StatusListBreach"))).click();
-    Thread.sleep(1000);
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_TakeActionGreenTakeActionButton"))).click();
-    wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))));
-    Thread.sleep(2000);
+    //Set status to breach and click green Take Action button - using AQ_TakeActionBreach method
+    AQ_TakeActionBreach(driver);
     
     //Check that message has been moved from the Analyst Queue
-    String reviewedMessageSourceId = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewSourceId"))).getText();
+    String reviewedMessageSourceId = driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewSourceId"))).getText();
     
     if(reviewedMessageSourceId.equals(breachMessageSourceId)) {
     	String newReviewedMessageSourceId = AQ_WaitForNewSourceId(driver, breachMessageSourceId, reviewedMessageSourceId);
     	reviewedMessageSourceId = newReviewedMessageSourceId;
     }
     
-    String reviewedMessageSubject = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewSubjectLabel"))).getText();
+    String reviewedMessageSubject = driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewSubjectLabel"))).getText();
     System.out.println("Reviewed message 1 Subject: " + reviewedMessageSubject);
     
-    String reviewedMessageDate = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewDateLabel"))).getText();
+    String reviewedMessageDate = driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewDateLabel"))).getText();
     System.out.println("Reviewed message 1 Date: " + reviewedMessageDate);
     
 	System.out.println("Reviewed message 1 Source ID: " + reviewedMessageSourceId);
     
-    //Set status to reviewed and click green Take Action button
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))).click();
-    Thread.sleep(1000);
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_StatusDropdownButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Lst_AnalystQueue_StatusListReviewed"))).click();
-    Thread.sleep(1000);
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_TakeActionGreenTakeActionButton"))).click();
-    wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))));
-    Thread.sleep(2000);
+    //Set status to reviewed and click green Take Action button - using AQ_TakeActionReviewed method
+    AQ_TakeActionReviewed(driver);
     
     //Check that message has been moved from the Analyst Queue
-    String spamMessageSourceId = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewSourceId"))).getText();
+    String spamMessageSourceId = driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewSourceId"))).getText();
     
     if(spamMessageSourceId.equals(reviewedMessageSourceId)) {
     	String newSpamMessageSourceId = AQ_WaitForNewSourceId(driver, reviewedMessageSourceId, spamMessageSourceId);
     	spamMessageSourceId = newSpamMessageSourceId;
     }
     
-    String spamMessageSubject = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewSubjectLabel"))).getText();
+    String spamMessageSubject = driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewSubjectLabel"))).getText();
     System.out.println("Spam message 1 Subject: " + spamMessageSubject);
     
-    String spamMessageDate = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewDateLabel"))).getText();
+    String spamMessageDate = driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewDateLabel"))).getText();
     System.out.println("Spam message 1 Date: " + spamMessageDate);
     
 	System.out.println("Spam message 1 Source ID: " + spamMessageSourceId);
     
-    //Set status to spam and click green Take Action button
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))).click();
-    Thread.sleep(1000);
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_StatusDropdownButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Lst_AnalystQueue_StatusListSpam"))).click();
-    Thread.sleep(1000);
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_TakeActionGreenTakeActionButton"))).click();
-    wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))));
-    Thread.sleep(2000);
+    //Set status to spam and click green Take Action button - using AQ_TakeActionSpam method
+    AQ_TakeActionSpam(driver);
     
     //Check that message has been moved from the Analyst Queue
-    String newsMessageSourceId = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewSourceId"))).getText();
+    String newsMessageSourceId = driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewSourceId"))).getText();
     
     if(newsMessageSourceId.equals(spamMessageSourceId)) {
     	String newNewsMessageSourceId = AQ_WaitForNewSourceId(driver, spamMessageSourceId, newsMessageSourceId);
     	newsMessageSourceId = newNewsMessageSourceId;
     }
     
-    String newsMessageSubject = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewSubjectLabel"))).getText();
+    String newsMessageSubject = driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewSubjectLabel"))).getText();
     System.out.println("News message 1 Subject: " + newsMessageSubject);
     
-    String newsMessageDate = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewDateLabel"))).getText();
+    String newsMessageDate = driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewDateLabel"))).getText();
     System.out.println("News message 1 Date: " + newsMessageDate);
     
 	System.out.println("News message 1 Source ID: " + newsMessageSourceId);
     
-    //Set status to news and click green Take Action button
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))).click();
-    Thread.sleep(1000);
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_StatusDropdownButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Lst_AnalystQueue_StatusListNews"))).click();
-    Thread.sleep(1000);
-    driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_TakeActionGreenTakeActionButton"))).click();
-    wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))));
-    Thread.sleep(2000);
+    //Set status to news and click green Take Action button - using AQ_TakeActionNews method
+    AQ_TakeActionNews(driver);
     
     //Check that message has been moved from the Analyst Queue
-    String reviewedMessageSourceId2 = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewSourceId"))).getText();
+    String reviewedMessageSourceId2 = driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewSourceId"))).getText();
     
     if(reviewedMessageSourceId2.equals(newsMessageSourceId)) {
     	String newReviewedMessageSourceId2 = AQ_WaitForNewSourceId(driver, newsMessageSourceId, reviewedMessageSourceId2);
     	reviewedMessageSourceId2 = newReviewedMessageSourceId2;
     }
     
-    String reviewedMessageSubject2 = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewSubjectLabel"))).getText();
+    String reviewedMessageSubject2 = driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewSubjectLabel"))).getText();
     System.out.println("Reviewed message 2 Subject: " + reviewedMessageSubject2);
     
-    String reviewedMessageDate2 = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewDateLabel"))).getText();
+    String reviewedMessageDate2 = driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewDateLabel"))).getText();
     System.out.println("Reviewed message 2 Date: " + reviewedMessageDate2);
     
 	System.out.println("Reviewed message 2 Source ID: " + reviewedMessageSourceId2);
@@ -276,17 +203,17 @@ public class TakeActionStatusFunctionality extends MonitoringPage_Functions {
     Thread.sleep(2000);
     
     //Check that message has been moved from the Analyst Queue
-    String spamMessageSourceId2 = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewSourceId"))).getText();
+    String spamMessageSourceId2 = driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewSourceId"))).getText();
     
     if(spamMessageSourceId2.equals(reviewedMessageSourceId2)) {
     	String newSpamMessageSourceId2 = AQ_WaitForNewSourceId(driver, reviewedMessageSourceId2, spamMessageSourceId2);
     	spamMessageSourceId2 = newSpamMessageSourceId2;
     }
     
-    String spamMessageSubject2 = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewSubjectLabel"))).getText();
+    String spamMessageSubject2 = driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewSubjectLabel"))).getText();
     System.out.println("Spam message 2 Subject: " + spamMessageSubject2);
     
-    String spamMessageDate2 = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewDateLabel"))).getText();
+    String spamMessageDate2 = driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewDateLabel"))).getText();
     System.out.println("Spam message 2 Date: " + spamMessageDate2);
     
 	System.out.println("Spam message 2 Source ID: " + spamMessageSourceId2);
@@ -297,17 +224,17 @@ public class TakeActionStatusFunctionality extends MonitoringPage_Functions {
     Thread.sleep(2000);
     
     //Check that message has been moved from the Analyst Queue
-    String newsMessageSourceId2 = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewSourceId"))).getText();
+    String newsMessageSourceId2 = driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewSourceId"))).getText();
     
     if(newsMessageSourceId2.equals(spamMessageSourceId2)) {
     	String newNewsMessageSourceId2 = AQ_WaitForNewSourceId(driver, spamMessageSourceId2, newsMessageSourceId2);
     	newsMessageSourceId2 = newNewsMessageSourceId2;
     }
     
-    String newsMessageSubject2 = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewSubjectLabel"))).getText();
+    String newsMessageSubject2 = driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewSubjectLabel"))).getText();
     System.out.println("News message 2 Subject: " + newsMessageSubject2);
     
-    String newsMessageDate2 = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewDateLabel"))).getText();
+    String newsMessageDate2 = driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewDateLabel"))).getText();
     System.out.println("News message 2 Date: " + newsMessageDate2);
     
 	System.out.println("News message 2 Source ID: " + newsMessageSourceId2);
@@ -318,14 +245,15 @@ public class TakeActionStatusFunctionality extends MonitoringPage_Functions {
     Thread.sleep(2000);
     
     //Check that message has been moved from the Analyst Queue
-    String testMessageSourceId = driver.findElement(By.cssSelector(prop.getProperty("Lbl_MessageQueue_MsgViewSourceId"))).getText();
+    String testMessageSourceId = driver.findElement(By.cssSelector(prop.getProperty("Lbl_AnalystQueue_MsgViewSourceId"))).getText();
     
     if(testMessageSourceId.equals(newsMessageSourceId2)) {
     	String newTestMessageSourceId = AQ_WaitForNewSourceId(driver, newsMessageSourceId2, testMessageSourceId);
     	testMessageSourceId = newTestMessageSourceId;
     }
     
-    
+
+
     
     //Go to the Search tab
     driver.findElement(By.linkText(prop.getProperty("Lnk_Monitoring_SearchTab"))).click();
@@ -337,28 +265,27 @@ public class TakeActionStatusFunctionality extends MonitoringPage_Functions {
     //Shorten message timestamp to date for search
     String followUpMessageDate_Search = followUpMessageDate.substring(0, 10);
     
-    //Search for message by subject, status (Follow-up), and Date
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_ClearAllFiltersButton"))).click();
-    driver.findElement(By.id(prop.getProperty("Txt_Search_KeywordsInSubject"))).sendKeys(followUpMessageSubject_Search);
-    driver.findElement(By.xpath(prop.getProperty("Lst_Search_StatusListFollowUp"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_SentDateDropdownButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateFromField"))).clear();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateFromField"))).sendKeys(followUpMessageDate_Search);
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateToField"))).clear();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateToField"))).sendKeys(followUpMessageDate_Search);
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_SentDateApplyButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_SearchButton"))).click();
-    Thread.sleep(2000);
+    //Search for message by subject, status (Follow-up), and Date - using SearchMessage method
+    String searchReviewedXpath = "Lst_Search_StatusListFollowUp";
+    SearchMessage(driver, followUpMessageSubject_Search, followUpMessageDate_Search, searchReviewedXpath);
     
     //Set list to sort by Sent - Newest First
     new Select(driver.findElement(By.xpath(prop.getProperty("Btn_Search_SortListDropdown")))).selectByVisibleText("Sent - Newest First");
     driver.findElement(By.xpath(prop.getProperty("Lst_Search_SortListNewestFirst"))).click();
     Thread.sleep(2000);
+
+    //Click on the message to verify the details
+    driver.findElement(By.xpath(".//*[@id='applicationHost']/div/div[1]/div/div/div[2]/div/div[1]/div[2]/table/tbody/tr[td[1]=\"" + followUpMessageSubject + "\"]/td[1]")).click();
+    wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))));
+    Thread.sleep(2000);
     
     //Verify that message details (subject, status, date) match the message
-    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_Search_SearchResultMessageSubject"))).getText(), followUpMessageSubject, "Message subjects do not match");
-    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_SearchResultMessageStatus"))).getText(), "Follow-up", "Message status does not match");
-    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_SearchResultMessageDate"))).getText(), followUpMessageDate, "Message Date does not match");
+    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_Search_MsgViewSubject"))).getText(), followUpMessageSubject, "Message subjects do not match for followUpMessage");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewStatus"))).getText(), "follow-up", "Message status does not match for followUpMessage");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewResolved"))).getText(), "false", "Message status does not match for followUpMessage");
+    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_Search_MsgViewDate"))).getText(), followUpMessageDate, "Message Date does not match for followUpMessage");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewOwner"))).getText(), "Analyst User", "Message Owners do not match for followUpMessage");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewAssignee"))).getText(), "Analyst User", "Message Assignees do not match for followUpMessage");
     
     driver.findElement(By.xpath(prop.getProperty("Btn_Search_ShowFiltersButton"))).click();
     Thread.sleep(2000);
@@ -369,23 +296,22 @@ public class TakeActionStatusFunctionality extends MonitoringPage_Functions {
     //Shorten message timestamp to date for search
     String escalateMessageDate_Search = escalateMessageDate.substring(0, 10);
     
-    //Search for message by subject, status (Escalate), and Date
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_ClearAllFiltersButton"))).click();
-    driver.findElement(By.id(prop.getProperty("Txt_Search_KeywordsInSubject"))).sendKeys(escalateMessageSubject_Search);
-    driver.findElement(By.xpath(prop.getProperty("Lst_Search_StatusListEscalate"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_SentDateDropdownButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateFromField"))).clear();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateFromField"))).sendKeys(escalateMessageDate_Search);
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateToField"))).clear();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateToField"))).sendKeys(escalateMessageDate_Search);
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_SentDateApplyButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_SearchButton"))).click();
+    //Search for message by subject, status (Escalate), and Date - using SearchMessage method
+    searchReviewedXpath = "Lst_Search_StatusListEscalate";
+    SearchMessage(driver, escalateMessageSubject_Search, escalateMessageDate_Search, searchReviewedXpath);
+
+    //Click on the message to verify the details
+    driver.findElement(By.xpath(".//*[@id='applicationHost']/div/div[1]/div/div/div[2]/div/div[1]/div[2]/table/tbody/tr[td[1]=\"" + escalateMessageSubject + "\"]/td[1]")).click();
+    wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))));
     Thread.sleep(2000);
     
     //Verify that message details (subject, status, date) match the message
-    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_Search_SearchResultMessageSubject"))).getText(), escalateMessageSubject, "Message subjects do not match");
-    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_SearchResultMessageStatus"))).getText(), "Escalate", "Message status does not match");
-    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_SearchResultMessageDate"))).getText(), escalateMessageDate, "Message Date does not match");
+    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_Search_MsgViewSubject"))).getText(), escalateMessageSubject, "Message subjects do not match for escalateMessage");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewStatus"))).getText(), "escalate", "Message status does not match for escalateMessage");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewResolved"))).getText(), "false", "Message status does not match for escalateMessage");
+    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_Search_MsgViewDate"))).getText(), escalateMessageDate, "Message Date does not match for escalateMessage");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewOwner"))).getText(), "Analyst User", "Message Owners do not match for escalateMessage");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewAssignee"))).getText(), "Analyst User", "Message Assignees do not match for escalateMessage");
     
     driver.findElement(By.xpath(prop.getProperty("Btn_Search_ShowFiltersButton"))).click();
     Thread.sleep(2000);
@@ -396,23 +322,22 @@ public class TakeActionStatusFunctionality extends MonitoringPage_Functions {
     //Shorten message timestamp to date for search
     String breachMessageDate_Search = breachMessageDate.substring(0, 10);
     
-    //Search for message by subject, status (Breach), and Date
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_ClearAllFiltersButton"))).click();
-    driver.findElement(By.id(prop.getProperty("Txt_Search_KeywordsInSubject"))).sendKeys(breachMessageSubject_Search);
-    driver.findElement(By.xpath(prop.getProperty("Lst_Search_StatusListBreach"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_SentDateDropdownButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateFromField"))).clear();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateFromField"))).sendKeys(breachMessageDate_Search);
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateToField"))).clear();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateToField"))).sendKeys(breachMessageDate_Search);
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_SentDateApplyButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_SearchButton"))).click();
+    //Search for message by subject, status (Breach), and Date - using SearchMessage method
+    searchReviewedXpath = "Lst_Search_StatusListBreach";
+    SearchMessage(driver, breachMessageSubject_Search, breachMessageDate_Search, searchReviewedXpath);
+
+    //Click on the message to verify the details
+    driver.findElement(By.xpath(".//*[@id='applicationHost']/div/div[1]/div/div/div[2]/div/div[1]/div[2]/table/tbody/tr[td[1]=\"" + breachMessageSubject + "\"]/td[1]")).click();
+    wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))));
     Thread.sleep(2000);
     
     //Verify that message details (subject, status, date) match the message
-    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_Search_SearchResultMessageSubject"))).getText(), breachMessageSubject, "Message subjects do not match");
-    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_SearchResultMessageStatus"))).getText(), "Breach", "Message status does not match");
-    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_SearchResultMessageDate"))).getText(), breachMessageDate, "Message Date does not match");
+    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_Search_MsgViewSubject"))).getText(), breachMessageSubject, "Message subjects do not match for breachMessage");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewStatus"))).getText(), "breach", "Message status does not match for breachMessage");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewResolved"))).getText(), "false", "Message status does not match for breachMessage");
+    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_Search_MsgViewDate"))).getText(), breachMessageDate, "Message Date does not match for breachMessage");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewOwner"))).getText(), "Analyst User", "Message Owners do not match for breachMessage");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewAssignee"))).getText(), "Analyst User", "Message Assignees do not match for breachMessage");
     
     driver.findElement(By.xpath(prop.getProperty("Btn_Search_ShowFiltersButton"))).click();
     Thread.sleep(2000);
@@ -423,23 +348,22 @@ public class TakeActionStatusFunctionality extends MonitoringPage_Functions {
     //Shorten message timestamp to date for search
     String reviewedMessageDate_Search = reviewedMessageDate.substring(0, 10);
     
-    //Search for message by subject, status (Reviewed), and Date
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_ClearAllFiltersButton"))).click();
-    driver.findElement(By.id(prop.getProperty("Txt_Search_KeywordsInSubject"))).sendKeys(reviewedMessageSubject_Search);
-    driver.findElement(By.xpath(prop.getProperty("Lst_Search_StatusListReviewed"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_SentDateDropdownButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateFromField"))).clear();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateFromField"))).sendKeys(reviewedMessageDate_Search);
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateToField"))).clear();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateToField"))).sendKeys(reviewedMessageDate_Search);
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_SentDateApplyButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_SearchButton"))).click();
+    //Search for message by subject, status (Reviewed), and Date - using SearchMessage method
+    searchReviewedXpath = "Lst_Search_StatusListReviewed";
+    SearchMessage(driver, reviewedMessageSubject_Search, reviewedMessageDate_Search, searchReviewedXpath);
+
+    //Click on the message to verify the details
+    driver.findElement(By.xpath(".//*[@id='applicationHost']/div/div[1]/div/div/div[2]/div/div[1]/div[2]/table/tbody/tr[td[1]=\"" + reviewedMessageSubject + "\"]/td[1]")).click();
+    wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))));
     Thread.sleep(2000);
     
     //Verify that message details (subject, status, date) match the message
-    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_Search_SearchResultMessageSubject"))).getText(), reviewedMessageSubject, "Message subjects do not match");
-    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_SearchResultMessageStatus"))).getText(), "Reviewed", "Message status does not match");
-    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_SearchResultMessageDate"))).getText(), reviewedMessageDate, "Message Date does not match");
+    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_Search_MsgViewSubject"))).getText(), reviewedMessageSubject, "Message subjects do not match for reviewedMessage");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewStatus"))).getText(), "reviewed", "Message status does not match for reviewedMessage");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewResolved"))).getText(), "true", "Message status does not match for reviewedMessage");
+    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_Search_MsgViewDate"))).getText(), reviewedMessageDate, "Message Date does not match for reviewedMessage");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewOwner"))).getText(), "Analyst User", "Message Owners do not match for reviewedMessage");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewAssignee"))).getText(), "Analyst User", "Message Assignees do not match for reviewedMessage");
     
     driver.findElement(By.xpath(prop.getProperty("Btn_Search_ShowFiltersButton"))).click();
     Thread.sleep(2000);
@@ -450,23 +374,22 @@ public class TakeActionStatusFunctionality extends MonitoringPage_Functions {
     //Shorten message timestamp to date for search
     String spamMessageDate_Search = spamMessageDate.substring(0, 10);
     
-    //Search for message by subject, status (Spam), and Date
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_ClearAllFiltersButton"))).click();
-    driver.findElement(By.id(prop.getProperty("Txt_Search_KeywordsInSubject"))).sendKeys(spamMessageSubject_Search);
-    driver.findElement(By.xpath(prop.getProperty("Lst_Search_StatusListSpam"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_SentDateDropdownButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateFromField"))).clear();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateFromField"))).sendKeys(spamMessageDate_Search);
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateToField"))).clear();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateToField"))).sendKeys(spamMessageDate_Search);
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_SentDateApplyButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_SearchButton"))).click();
+    //Search for message by subject, status (Spam), and Date - using SearchMessage method
+    searchReviewedXpath = "Lst_Search_StatusListSpam";
+    SearchMessage(driver, spamMessageSubject_Search, spamMessageDate_Search, searchReviewedXpath);
+
+    //Click on the message to verify the details
+    driver.findElement(By.xpath(".//*[@id='applicationHost']/div/div[1]/div/div/div[2]/div/div[1]/div[2]/table/tbody/tr[td[1]=\"" + spamMessageSubject + "\"]/td[1]")).click();
+    wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))));
     Thread.sleep(2000);
     
     //Verify that message details (subject, status, date) match the message
-    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_Search_SearchResultMessageSubject"))).getText(), spamMessageSubject, "Message subjects do not match");
-    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_SearchResultMessageStatus"))).getText(), "Spam", "Message status does not match");
-    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_SearchResultMessageDate"))).getText(), spamMessageDate, "Message Date does not match");
+    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_Search_MsgViewSubject"))).getText(), spamMessageSubject, "Message subjects do not match for spamMessage");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewStatus"))).getText(), "spam", "Message status does not match for spamMessage");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewResolved"))).getText(), "true", "Message status does not match for spamMessage");
+    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_Search_MsgViewDate"))).getText(), spamMessageDate, "Message Date does not match for spamMessage");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewOwner"))).getText(), "Analyst User", "Message Owners do not match for spamMessage");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewAssignee"))).getText(), "Analyst User", "Message Assignees do not match for spamMessage");
     
     driver.findElement(By.xpath(prop.getProperty("Btn_Search_ShowFiltersButton"))).click();
     Thread.sleep(2000);
@@ -477,23 +400,22 @@ public class TakeActionStatusFunctionality extends MonitoringPage_Functions {
     //Shorten message timestamp to date for search
     String newsMessageDate_Search = newsMessageDate.substring(0, 10);
     
-    //Search for message by subject, status (News), and Date
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_ClearAllFiltersButton"))).click();
-    driver.findElement(By.id(prop.getProperty("Txt_Search_KeywordsInSubject"))).sendKeys(newsMessageSubject_Search);
-    driver.findElement(By.xpath(prop.getProperty("Lst_Search_StatusListNews"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_SentDateDropdownButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateFromField"))).clear();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateFromField"))).sendKeys(newsMessageDate_Search);
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateToField"))).clear();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateToField"))).sendKeys(newsMessageDate_Search);
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_SentDateApplyButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_SearchButton"))).click();
+    //Search for message by subject, status (News), and Date - using SearchMessage method
+    searchReviewedXpath = "Lst_Search_StatusListNews";
+    SearchMessage(driver, newsMessageSubject_Search, newsMessageDate_Search, searchReviewedXpath);
+
+    //Click on the message to verify the details
+    driver.findElement(By.xpath(".//*[@id='applicationHost']/div/div[1]/div/div/div[2]/div/div[1]/div[2]/table/tbody/tr[td[1]=\"" + newsMessageSubject + "\"]/td[1]")).click();
+    wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))));
     Thread.sleep(2000);
     
     //Verify that message details (subject, status, date) match the message
-    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_Search_SearchResultMessageSubject"))).getText(), newsMessageSubject, "Message subjects do not match");
-    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_SearchResultMessageStatus"))).getText(), "News", "Message status does not match");
-    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_SearchResultMessageDate"))).getText(), newsMessageDate, "Message Date does not match");
+    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_Search_MsgViewSubject"))).getText(), newsMessageSubject, "Message subjects do not match for newsMessage");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewStatus"))).getText(), "news", "Message status does not match for newsMessage");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewResolved"))).getText(), "true", "Message status does not match for newsMessage");
+    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_Search_MsgViewDate"))).getText(), newsMessageDate, "Message Date does not match for newsMessage");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewOwner"))).getText(), "Analyst User", "Message Owners do not match for newsMessage");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewAssignee"))).getText(), "Analyst User", "Message Assignees do not match for newsMessage");
     
     driver.findElement(By.xpath(prop.getProperty("Btn_Search_ShowFiltersButton"))).click();
     Thread.sleep(2000);
@@ -504,77 +426,74 @@ public class TakeActionStatusFunctionality extends MonitoringPage_Functions {
     //Shorten message timestamp to date for search
     String reviewedMessageDate2_Search = reviewedMessageDate2.substring(0, 10);
     
-    //Search for message by subject, status (Reviewed), and Date
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_ClearAllFiltersButton"))).click();
-    driver.findElement(By.id(prop.getProperty("Txt_Search_KeywordsInSubject"))).sendKeys(reviewedMessageSubject2_Search);
-    driver.findElement(By.xpath(prop.getProperty("Lst_Search_StatusListReviewed"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_SentDateDropdownButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateFromField"))).clear();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateFromField"))).sendKeys(reviewedMessageDate2_Search);
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateToField"))).clear();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateToField"))).sendKeys(reviewedMessageDate2_Search);
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_SentDateApplyButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_SearchButton"))).click();
+    //Search for message by subject, status (Reviewed), and Date - using SearchMessage method
+    searchReviewedXpath = "Lst_Search_StatusListReviewed";
+    SearchMessage(driver, reviewedMessageSubject2_Search, reviewedMessageDate2_Search, searchReviewedXpath);
+
+    //Click on the message to verify the details
+    driver.findElement(By.xpath(".//*[@id='applicationHost']/div/div[1]/div/div/div[2]/div/div[1]/div[2]/table/tbody/tr[td[1]=\"" + reviewedMessageSubject2 + "\"]/td[1]")).click();
+    wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))));
     Thread.sleep(2000);
     
     //Verify that message details (subject, status, date) match the message
-    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_Search_SearchResultMessageSubject"))).getText(), reviewedMessageSubject2, "Message subjects do not match");
-    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_SearchResultMessageStatus"))).getText(), "Reviewed", "Message status does not match");
-    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_SearchResultMessageDate"))).getText(), reviewedMessageDate2, "Message Date does not match");
+    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_Search_MsgViewSubject"))).getText(), reviewedMessageSubject2, "Message subjects do not match for reviewedMessage2");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewStatus"))).getText(), "reviewed", "Message status does not match for reviewedMessage2");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewResolved"))).getText(), "true", "Message status does not match for reviewedMessage2");
+    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_Search_MsgViewDate"))).getText(), reviewedMessageDate2, "Message Date does not match for reviewedMessage2");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewOwner"))).getText(), "Analyst User", "Message Owners do not match for reviewedMessage2");
+    //Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewAssignee"))).getText(), "Analyst User", "Message Assignees do not match for reviewedMessage2");
     
     driver.findElement(By.xpath(prop.getProperty("Btn_Search_ShowFiltersButton"))).click();
     Thread.sleep(2000);
     
     //Add Quotes to spamMessageSubject2 so that it can be used to search
-    String spamMessageSubject_Search2 = "\"" + spamMessageSubject2 + "\"";
+    String spamMessageSubject2_Search = "\"" + spamMessageSubject2 + "\"";
     
     //Shorten message timestamp to date for search
-    String spamMessageDate_Search2 = spamMessageDate2.substring(0, 10);
+    String spamMessageDate2_Search = spamMessageDate2.substring(0, 10);
     
-    //Search for message by subject, status (Spam), and Date
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_ClearAllFiltersButton"))).click();
-    driver.findElement(By.id(prop.getProperty("Txt_Search_KeywordsInSubject"))).sendKeys(spamMessageSubject_Search2);
-    driver.findElement(By.xpath(prop.getProperty("Lst_Search_StatusListSpam"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_SentDateDropdownButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateFromField"))).clear();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateFromField"))).sendKeys(spamMessageDate_Search2);
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateToField"))).clear();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateToField"))).sendKeys(spamMessageDate_Search2);
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_SentDateApplyButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_SearchButton"))).click();
+    //Search for message by subject, status (Spam), and Date - using SearchMessage method
+    searchReviewedXpath = "Lst_Search_StatusListSpam";
+    SearchMessage(driver, spamMessageSubject2_Search, spamMessageDate2_Search, searchReviewedXpath);
+
+    //Click on the message to verify the details
+    driver.findElement(By.xpath(".//*[@id='applicationHost']/div/div[1]/div/div/div[2]/div/div[1]/div[2]/table/tbody/tr[td[1]=\"" + spamMessageSubject2 + "\"]/td[1]")).click();
+    wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))));
     Thread.sleep(2000);
     
     //Verify that message details (subject, status, date) match the message
-    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_Search_SearchResultMessageSubject"))).getText(), spamMessageSubject2, "Message subjects do not match");
-    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_SearchResultMessageStatus"))).getText(), "Spam", "Message status does not match");
-    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_SearchResultMessageDate"))).getText(), spamMessageDate2, "Message Date does not match");
+    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_Search_MsgViewSubject"))).getText(), spamMessageSubject2, "Message subjects do not match for spamMessage2");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewStatus"))).getText(), "spam", "Message status does not match for spamMessage2");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewResolved"))).getText(), "true", "Message status does not match for spamMessage2");
+    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_Search_MsgViewDate"))).getText(), spamMessageDate2, "Message Date does not match for spamMessage2");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewOwner"))).getText(), "Analyst User", "Message Owners do not match for spamMessage2");
+    //Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewAssignee"))).getText(), "Analyst User", "Message Assignees do not match for spamMessage2");
     
     driver.findElement(By.xpath(prop.getProperty("Btn_Search_ShowFiltersButton"))).click();
     Thread.sleep(2000);
     
     //Add Quotes to newsMessageSubject2 so that it can be used to search
-    String newsMessageSubject_Search2 = "\"" + newsMessageSubject2 + "\"";
+    String newsMessageSubject2_Search = "\"" + newsMessageSubject2 + "\"";
     
     //Shorten message timestamp to date for search
-    String newsMessageDate_Search2 = newsMessageDate2.substring(0, 10);
+    String newsMessageDate2_Search = newsMessageDate2.substring(0, 10);
     
-    //Search for message by subject, status (News), and Date
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_ClearAllFiltersButton"))).click();
-    driver.findElement(By.id(prop.getProperty("Txt_Search_KeywordsInSubject"))).sendKeys(newsMessageSubject_Search2);
-    driver.findElement(By.xpath(prop.getProperty("Lst_Search_StatusListNews"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_SentDateDropdownButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateFromField"))).clear();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateFromField"))).sendKeys(newsMessageDate_Search2);
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateToField"))).clear();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Search_SentDateToField"))).sendKeys(newsMessageDate_Search2);
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_SentDateApplyButton"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Btn_Search_SearchButton"))).click();
+    //Search for message by subject, status (News), and Date - using SearchMessage method
+    searchReviewedXpath = "Lst_Search_StatusListNews";
+    SearchMessage(driver, newsMessageSubject2_Search, newsMessageDate2_Search, searchReviewedXpath);
+
+    //Click on the message to verify the details
+    driver.findElement(By.xpath(".//*[@id='applicationHost']/div/div[1]/div/div/div[2]/div/div[1]/div[2]/table/tbody/tr[td[1]=\"" + newsMessageSubject2 + "\"]/td[1]")).click();
+    wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_AnalystQueue_MsgViewRedTakeActionButton"))));
     Thread.sleep(2000);
     
     //Verify that message details (subject, status, date) match the message
-    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_Search_SearchResultMessageSubject"))).getText(), newsMessageSubject2, "Message subjects do not match");
-    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_SearchResultMessageStatus"))).getText(), "News", "Message status does not match");
-    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_SearchResultMessageDate"))).getText(), newsMessageDate2, "Message Date does not match");
+    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_Search_MsgViewSubject"))).getText(), newsMessageSubject2, "Message subjects do not match for newsMessage2");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewStatus"))).getText(), "news", "Message status does not match for newsMessage2");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewResolved"))).getText(), "true", "Message status does not match for newsMessage2");
+    Assert.assertEquals(driver.findElement(By.cssSelector(prop.getProperty("Lbl_Search_MsgViewDate"))).getText(), newsMessageDate2, "Message Date does not match for newsMessage2");
+    Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewOwner"))).getText(), "Analyst User", "Message Owners do not match for newsMessage2");
+    //Assert.assertEquals(driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewAssignee"))).getText(), "Analyst User", "Message Assignees do not match for newsMessage2");
     
     //End of test
     System.out.println("Test PASSED!");
