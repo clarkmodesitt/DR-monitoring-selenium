@@ -300,13 +300,13 @@ public class AssigningMessagesAndMessageActivity extends MonitoringPage_Function
 
     //Go to the Attachments tab and open an attachment - Save the attachment name
     driver.findElement(By.xpath(prop.getProperty("Btn_Search_MsgViewAttachmentsTab"))).click();
-    Thread.sleep(1000);
+    Thread.sleep(3000);
     String attachmentFileName = driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewAttachmentFile"))).getText();
     driver.findElement(By.xpath(prop.getProperty("Lbl_Search_MsgViewAttachmentFile"))).click();
     System.out.println("Viewed attachment: " + attachmentFileName);
-    Thread.sleep(2000);
+    Thread.sleep(3000);
     driver.findElement(By.xpath(prop.getProperty("Btn_Search_MsgViewAttachmentCloseButton"))).click();
-    Thread.sleep(500);
+    Thread.sleep(1000);
     driver.findElement(By.xpath(prop.getProperty("Btn_Search_MsgViewXButton"))).click();
     Thread.sleep(1000);
 
