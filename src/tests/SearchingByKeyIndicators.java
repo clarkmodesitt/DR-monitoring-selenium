@@ -4,9 +4,7 @@ import functions.MonitoringPage_Functions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import org.testng.AssertJUnit;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -16,7 +14,7 @@ import java.io.FileInputStream;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-public class AutoPopulatingFilterFields extends MonitoringPage_Functions {
+public class SearchingByKeyIndicators extends MonitoringPage_Functions {
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
   public static String sharedUIMapPath;

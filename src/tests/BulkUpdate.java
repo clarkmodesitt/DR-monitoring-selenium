@@ -53,7 +53,7 @@ public class BulkUpdate extends MonitoringPage_Functions {
     driver.findElement(By.linkText(prop.getProperty("Lnk_Synthesys_MonitoringTab"))).click();
     wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_Monitoring_KGDropdownButton"))));
 
-    AQ_SelectKGForTesting(driver, prop.getProperty("SelectedKG"));
+    AQ_SelectKGForTesting(driver, prop.getProperty("More1mKG"));
 
     //Set the Sort to Sent - Newest First
     new Select(driver.findElement(By.xpath(prop.getProperty("Btn_AnalystQueue_SortListDropdown")))).selectByVisibleText("Sent - Newest First");

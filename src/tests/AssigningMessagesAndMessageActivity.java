@@ -56,7 +56,7 @@ public class AssigningMessagesAndMessageActivity extends MonitoringPage_Function
     driver.findElement(By.linkText(prop.getProperty("Lnk_Synthesys_MonitoringTab"))).click();
     wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_Monitoring_KGDropdownButton"))));
 
-    AQ_SelectKGForTesting(driver, prop.getProperty("SelectedKG"));
+    AQ_SelectKGForTesting(driver, prop.getProperty("Bush52KG"));
 
     //Analyst Queue - Setting message statuses
 
