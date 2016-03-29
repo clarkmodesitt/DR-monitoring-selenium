@@ -2,13 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ac084ae3-a4f9-4270-b12d-e63c1195a246" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tests/SearchingByKeyIndicators.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/tests/ActionPendingQueueFlow.class" afterPath="$PROJECT_DIR$/bin/tests/ActionPendingQueueFlow.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/tests/AssigningMessagesAndMessageActivity.class" afterPath="$PROJECT_DIR$/bin/tests/AssigningMessagesAndMessageActivity.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/tests/BulkUpdate.class" afterPath="$PROJECT_DIR$/bin/tests/BulkUpdate.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/tests/TakeActionStatusFunctionality.class" afterPath="$PROJECT_DIR$/bin/tests/TakeActionStatusFunctionality.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Configuration/Monitoring_Config.properties" afterPath="$PROJECT_DIR$/Configuration/Monitoring_Config.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SharedUIMap/SharedUIMap.properties" afterPath="$PROJECT_DIR$/SharedUIMap/SharedUIMap.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tests/ActionPendingQueueFlow.java" afterPath="$PROJECT_DIR$/src/tests/ActionPendingQueueFlow.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tests/AssigningMessagesAndMessageActivity.java" afterPath="$PROJECT_DIR$/src/tests/AssigningMessagesAndMessageActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tests/AutoPopulatingFilterFields.java" afterPath="$PROJECT_DIR$/src/tests/AutoPopulatingFilterFields.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tests/BulkUpdate.java" afterPath="$PROJECT_DIR$/src/tests/BulkUpdate.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tests/TakeActionStatusFunctionality.java" afterPath="$PROJECT_DIR$/src/tests/TakeActionStatusFunctionality.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tests/SearchingByKeyIndicators.java" afterPath="$PROJECT_DIR$/src/tests/SearchingByKeyIndicators.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testng.xml" afterPath="$PROJECT_DIR$/testng.xml" />
     </list>
     <ignored path="Monitoring.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -35,21 +40,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="BulkUpdate.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/tests/BulkUpdate.java">
+      <file leaf-file-name="AutoPopulatingFilterFields.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/tests/AutoPopulatingFilterFields.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="183" column="4" selection-start-line="183" selection-start-column="4" selection-end-line="184" selection-end-column="23" />
+              <caret line="456" column="23" selection-start-line="456" selection-start-column="23" selection-end-line="456" selection-end-column="23" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SearchingByKeyIndicators.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/tests/SearchingByKeyIndicators.java">
+      <file leaf-file-name="TakeActionStatusFunctionality.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/tests/TakeActionStatusFunctionality.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="58" column="59" selection-start-line="58" selection-start-column="59" selection-end-line="58" selection-end-column="59" />
               <folding />
             </state>
           </provider>
@@ -59,7 +64,7 @@
         <entry file="file://$PROJECT_DIR$/src/functions/MonitoringPage_Functions.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="190" column="27" selection-start-line="190" selection-start-column="27" selection-end-line="190" selection-end-column="27" />
+              <caret line="180" column="8" selection-start-line="180" selection-start-column="8" selection-end-line="180" selection-end-column="99" />
               <folding />
             </state>
           </provider>
@@ -69,17 +74,17 @@
         <entry file="file://$PROJECT_DIR$/SharedUIMap/SharedUIMap.properties">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="189" column="33" selection-start-line="189" selection-start-column="4" selection-end-line="189" selection-end-column="33" />
+              <caret line="205" column="139" selection-start-line="205" selection-start-column="139" selection-end-line="205" selection-end-column="139" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Monitoring_Config.properties" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Monitoring_Config.properties" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Configuration/Monitoring_Config.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="5" column="29" selection-start-line="5" selection-start-column="29" selection-end-line="5" selection-end-column="29" />
+            <state vertical-scroll-proportion="0.16411379">
+              <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -103,14 +108,15 @@
         <option value="$PROJECT_DIR$/src/tests/SauceLabsTest.java" />
         <option value="$PROJECT_DIR$/src/tests/LoginCheck_IE11.java" />
         <option value="$PROJECT_DIR$/src/functions/MonitoringPage_Functions.java" />
-        <option value="$PROJECT_DIR$/SharedUIMap/SharedUIMap.properties" />
         <option value="$PROJECT_DIR$/src/tests/AssigningMessagesAndMessageActivity.java" />
+        <option value="$PROJECT_DIR$/src/tests/TakeActionStatusFunctionality.java" />
+        <option value="$PROJECT_DIR$/src/tests/SearchingByKeyIndicators.java" />
+        <option value="$PROJECT_DIR$/SharedUIMap/SharedUIMap.properties" />
+        <option value="$PROJECT_DIR$/src/tests/AutoPopulatingFilterFields.java" />
+        <option value="$PROJECT_DIR$/testng.xml" />
         <option value="$PROJECT_DIR$/src/tests/ActionPendingQueueFlow.java" />
         <option value="$PROJECT_DIR$/src/tests/BulkUpdate.java" />
-        <option value="$PROJECT_DIR$/src/tests/TakeActionStatusFunctionality.java" />
-        <option value="$PROJECT_DIR$/src/tests/AutoPopulatingFilterFields.java" />
         <option value="$PROJECT_DIR$/Configuration/Monitoring_Config.properties" />
-        <option value="$PROJECT_DIR$/src/tests/SearchingByKeyIndicators.java" />
       </list>
     </option>
   </component>
@@ -122,10 +128,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1920" />
-    <option name="y" value="-362" />
-    <option name="width" value="1920" />
-    <option name="height" value="1057" />
+    <option name="y" value="23" />
+    <option name="width" value="1440" />
+    <option name="height" value="829" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -153,8 +158,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -239,6 +242,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -254,106 +259,7 @@
       <recent name="tests" />
     </key>
   </component>
-  <component name="RunManager" selected="TestNG.AssigningMessagesAndMessageActivity">
-    <configuration default="false" name="TakeActionStatusFunctionality (1)" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SUITE_NAME" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="tests.TakeActionStatusFunctionality" />
-      <option name="METHOD_NAME" />
-      <option name="GROUP_NAME" />
-      <option name="TEST_OBJECT" value="CLASS" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="OUTPUT_DIRECTORY" />
-      <option name="ANNOTATION_TYPE" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <option name="USE_DEFAULT_REPORTERS" value="false" />
-      <option name="PROPERTIES_FILE" />
-      <envs />
-      <properties />
-      <listeners />
-      <method />
-    </configuration>
-    <configuration default="false" name="ActionPendingQueueFlow" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="Monitoring" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SUITE_NAME" />
-      <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.ActionPendingQueueFlow" />
-      <option name="METHOD_NAME" />
-      <option name="GROUP_NAME" />
-      <option name="TEST_OBJECT" value="CLASS" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="OUTPUT_DIRECTORY" />
-      <option name="ANNOTATION_TYPE" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <option name="USE_DEFAULT_REPORTERS" value="false" />
-      <option name="PROPERTIES_FILE" />
-      <envs />
-      <properties />
-      <listeners />
-      <method />
-    </configuration>
-    <configuration default="false" name="LoginCheck_IE11" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="Monitoring" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SUITE_NAME" />
-      <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.LoginCheck_IE11" />
-      <option name="METHOD_NAME" />
-      <option name="GROUP_NAME" />
-      <option name="TEST_OBJECT" value="CLASS" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="OUTPUT_DIRECTORY" />
-      <option name="ANNOTATION_TYPE" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <option name="USE_DEFAULT_REPORTERS" value="false" />
-      <option name="PROPERTIES_FILE" />
-      <envs />
-      <properties />
-      <listeners />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="TestNG./Users/cmodesitt/Selenium/DR-monitoring-selenium/testng.xml">
     <configuration default="false" name="AssigningMessagesAndMessageActivity" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -403,6 +309,100 @@
       <option name="METHOD_NAME" />
       <option name="GROUP_NAME" />
       <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="false" name="SearchingByKeyIndicators" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="Monitoring" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" value="tests" />
+      <option name="MAIN_CLASS_NAME" value="tests.SearchingByKeyIndicators" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="false" name="AutoPopulatingFilterFields" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="Monitoring" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" value="tests" />
+      <option name="MAIN_CLASS_NAME" value="tests.AutoPopulatingFilterFields" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="false" name="/Users/cmodesitt/Selenium/DR-monitoring-selenium/testng.xml" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="Monitoring" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" value="$PROJECT_DIR$/testng.xml" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="SUITE" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -665,19 +665,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="TestNG.TakeActionStatusFunctionality (1)" />
-      <item index="1" class="java.lang.String" itemvalue="TestNG.ActionPendingQueueFlow" />
-      <item index="2" class="java.lang.String" itemvalue="TestNG.LoginCheck_IE11" />
-      <item index="3" class="java.lang.String" itemvalue="TestNG.AssigningMessagesAndMessageActivity" />
-      <item index="4" class="java.lang.String" itemvalue="TestNG.BulkUpdate" />
+      <item index="0" class="java.lang.String" itemvalue="TestNG.AssigningMessagesAndMessageActivity" />
+      <item index="1" class="java.lang.String" itemvalue="TestNG.BulkUpdate" />
+      <item index="2" class="java.lang.String" itemvalue="TestNG.SearchingByKeyIndicators" />
+      <item index="3" class="java.lang.String" itemvalue="TestNG.AutoPopulatingFilterFields" />
+      <item index="4" class="java.lang.String" itemvalue="TestNG./Users/cmodesitt/Selenium/DR-monitoring-selenium/testng.xml" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="TestNG.AssigningMessagesAndMessageActivity" />
-        <item index="1" class="java.lang.String" itemvalue="TestNG.BulkUpdate" />
-        <item index="2" class="java.lang.String" itemvalue="TestNG.ActionPendingQueueFlow" />
-        <item index="3" class="java.lang.String" itemvalue="TestNG.TakeActionStatusFunctionality (1)" />
-        <item index="4" class="java.lang.String" itemvalue="TestNG.LoginCheck_IE11" />
+        <item index="0" class="java.lang.String" itemvalue="TestNG./Users/cmodesitt/Selenium/DR-monitoring-selenium/testng.xml" />
+        <item index="1" class="java.lang.String" itemvalue="TestNG.AutoPopulatingFilterFields" />
+        <item index="2" class="java.lang.String" itemvalue="TestNG.SearchingByKeyIndicators" />
+        <item index="3" class="java.lang.String" itemvalue="TestNG.AssigningMessagesAndMessageActivity" />
+        <item index="4" class="java.lang.String" itemvalue="TestNG.BulkUpdate" />
       </list>
     </recent_temporary>
   </component>
@@ -695,64 +695,64 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="AssigningMessagesAndMessageActivity - 2016.03.11 at 15h 12m 40s.xml">
-      <configuration name="AssigningMessagesAndMessageActivity" configurationId="TestNG" />
+    <history-entry file="AutoPopulatingFilterFields - 2016.03.16 at 10h 28m 43s.xml">
+      <configuration name="AutoPopulatingFilterFields" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="AssigningMessagesAndMessageActivity - 2016.03.11 at 15h 15m 55s.xml">
-      <configuration name="AssigningMessagesAndMessageActivity" configurationId="TestNG" />
+    <history-entry file="AutoPopulatingFilterFields - 2016.03.16 at 12h 36m 16s.xml">
+      <configuration name="AutoPopulatingFilterFields" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="BulkUpdate - 2016.03.11 at 13h 07m 07s.xml">
-      <configuration name="BulkUpdate" configurationId="TestNG" />
+    <history-entry file="AutoPopulatingFilterFields - 2016.03.16 at 12h 37m 51s.xml">
+      <configuration name="AutoPopulatingFilterFields" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="BulkUpdate - 2016.03.11 at 13h 19m 42s.xml">
-      <configuration name="BulkUpdate" configurationId="TestNG" />
+    <history-entry file="AutoPopulatingFilterFields - 2016.03.16 at 12h 46m 55s.xml">
+      <configuration name="AutoPopulatingFilterFields" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="BulkUpdate - 2016.03.11 at 14h 46m 33s.xml">
-      <configuration name="BulkUpdate" configurationId="TestNG" />
+    <history-entry file="AutoPopulatingFilterFields - 2016.03.16 at 12h 56m 55s.xml">
+      <configuration name="AutoPopulatingFilterFields" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="BulkUpdate - 2016.03.11 at 14h 48m 54s.xml">
-      <configuration name="BulkUpdate" configurationId="TestNG" />
+    <history-entry file="AutoPopulatingFilterFields - 2016.03.16 at 13h 58m 49s.xml">
+      <configuration name="AutoPopulatingFilterFields" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="BulkUpdate - 2016.03.11 at 14h 51m 41s.xml">
-      <configuration name="BulkUpdate" configurationId="TestNG" />
+    <history-entry file="AutoPopulatingFilterFields - 2016.03.16 at 17h 04m 51s.xml">
+      <configuration name="AutoPopulatingFilterFields" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="BulkUpdate - 2016.03.11 at 14h 55m 14s.xml">
-      <configuration name="BulkUpdate" configurationId="TestNG" />
+    <history-entry file="AutoPopulatingFilterFields - 2016.03.16 at 17h 07m 47s.xml">
+      <configuration name="AutoPopulatingFilterFields" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="BulkUpdate - 2016.03.11 at 15h 08m 20s.xml">
-      <configuration name="BulkUpdate" configurationId="TestNG" />
+    <history-entry file="AutoPopulatingFilterFields - 2016.03.16 at 17h 11m 36s.xml">
+      <configuration name="AutoPopulatingFilterFields" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="BulkUpdate - 2016.03.11 at 15h 11m 58s.xml">
-      <configuration name="BulkUpdate" configurationId="TestNG" />
+    <history-entry file="_Users_cmodesitt_Selenium_DR-monitoring-selenium_testng_xml - 2016.03.29 at 14h 27m 38s.xml">
+      <configuration name="/Users/cmodesitt/Selenium/DR-monitoring-selenium/testng.xml" configurationId="TestNG" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1920" y="-362" width="1920" height="1057" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="23" width="1440" height="829" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3618421" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1046875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31710526" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21356276" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296875" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299595" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31710526" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -802,6 +802,22 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/tests/AssigningMessagesAndMessageActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tests/BulkUpdate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="231" column="4" selection-start-line="231" selection-start-column="4" selection-end-line="231" selection-end-column="175" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/tests/AssigningMessagesAndMessageActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1107,26 +1123,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/tests/SearchingByKeyIndicators.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33255813">
+          <caret line="72" column="79" selection-start-line="72" selection-start-column="78" selection-end-line="72" selection-end-column="79" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/functions/MonitoringPage_Functions.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="190" column="27" selection-start-line="190" selection-start-column="27" selection-end-line="190" selection-end-column="27" />
+          <caret line="180" column="8" selection-start-line="180" selection-start-column="8" selection-end-line="180" selection-end-column="99" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testng.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.41598696">
+          <caret line="17" column="11" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/tests/AssigningMessagesAndMessageActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46875">
-          <caret line="58" column="60" selection-start-line="58" selection-start-column="60" selection-end-line="58" selection-end-column="60" />
+        <state vertical-scroll-proportion="6.8053374">
+          <caret line="316" column="115" selection-start-line="316" selection-start-column="114" selection-end-line="316" selection-end-column="115" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/tests/ActionPendingQueueFlow.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.640625">
-          <caret line="58" column="60" selection-start-line="58" selection-start-column="60" selection-end-line="58" selection-end-column="60" />
+        <state vertical-scroll-proportion="0.8114754">
+          <caret line="60" column="57" selection-start-line="60" selection-start-column="57" selection-end-line="60" selection-end-column="57" />
           <folding>
             <element signature="method#isElementPresent#0;class#ActionPendingQueueFlow#0" expanded="false" />
             <element signature="method#isAlertPresent#0;class#ActionPendingQueueFlow#0" expanded="false" />
@@ -1137,8 +1169,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/tests/TakeActionStatusFunctionality.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.640625">
+        <state vertical-scroll-proportion="0.0">
           <caret line="58" column="59" selection-start-line="58" selection-start-column="59" selection-end-line="58" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tests/BulkUpdate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.111111">
+          <caret line="56" column="6" selection-start-line="56" selection-start-column="6" selection-end-line="56" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tests/AutoPopulatingFilterFields.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="456" column="23" selection-start-line="456" selection-start-column="23" selection-end-line="456" selection-end-column="23" />
           <folding />
         </state>
       </provider>
@@ -1146,39 +1194,15 @@
     <entry file="file://$PROJECT_DIR$/SharedUIMap/SharedUIMap.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="189" column="33" selection-start-line="189" selection-start-column="4" selection-end-line="189" selection-end-column="33" />
+          <caret line="205" column="139" selection-start-line="205" selection-start-column="139" selection-end-line="205" selection-end-column="139" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Configuration/Monitoring_Config.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="29" selection-start-line="5" selection-start-column="29" selection-end-line="5" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tests/AutoPopulatingFilterFields.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.63022506">
-          <caret line="61" column="6" selection-start-line="61" selection-start-column="6" selection-end-line="61" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tests/BulkUpdate.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="183" column="4" selection-start-line="183" selection-start-column="4" selection-end-line="184" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tests/SearchingByKeyIndicators.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.16411379">
+          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
           <folding />
         </state>
       </provider>

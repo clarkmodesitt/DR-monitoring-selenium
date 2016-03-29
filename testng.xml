@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite thread-count="1" name="Suite" parallel="tests">
-  <test name="SYNTC-42 - Monitoring - Take Action Status Functionality">
-    <classes>
-      <class name="tests.TakeActionStatusFunctionality"/>
-    </classes>
-  </test>
-  <test name="SYNTC-44 - Monitoring - Acton Pending Queue Flow">
-  	<classes>
-  	  <class name="tests.ActionPendingQueueFlow"/>
-  	</classes>
-  </test>
+    <test name="SYNTC-1 - Monitoring - Bulk Update">
+        <classes>
+            <class name="tests.BulkUpdate"/>
+        </classes>
+    </test>
+    <test name="SYNTC-42 - Monitoring - Take Action Status Functionality">
+        <classes>
+            <class name="tests.TakeActionStatusFunctionality"/>
+        </classes>
+    </test>
+    <test name="SYNTC-43 - Monitoring - Assigning Messages and Message Activity">
+        <classes>
+            <class name="tests.AssigningMessagesAndMessageActivity"/>
+        </classes>
+    </test>
+    <test name="SYNTC-44 - Monitoring - Acton Pending Queue Flow">
+        <classes>
+            <class name="tests.ActionPendingQueueFlow"/>
+        </classes>
+    </test>
 </suite> <!-- Suite -->
